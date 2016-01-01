@@ -18,7 +18,7 @@ public class Core implements ICore {
     public Core() throws Exception {
         uiController = new UIController();
         documentController = new DocumentController();
-        pluginController = new PluginController(this);
+        pluginController = new PluginController();
     }
 
     @Override

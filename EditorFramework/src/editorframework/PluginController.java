@@ -5,6 +5,7 @@
  */
 package editorframework;
 
+import editorframework.interfaces.IAbstractFactory;
 import editorframework.interfaces.ICore;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.IPluginController;
@@ -13,6 +14,7 @@ import java.io.FilenameFilter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,11 +23,16 @@ import java.util.logging.Logger;
  * @author aluno
  */
 public class PluginController implements IPluginController {
-    public PluginController(ICore core) throws MalformedURLException {
-        // Encontra a pasta plugins
+    public PluginController(){
+        loadedPlugins = new ArrayList<IPlugin>();
+    }
+
+    @Override
+    public void initialize(ICore core) throws MalformedURLException{
+    // Encontra a pasta plugins
         File currentDir = new File("./plugins");
         // Obtem todos os arquivos dentro desta pasta
-        String []plugins = currentDir.list();
+        String[] plugins = currentDir.list();
         // Criar um array de URL do mesmo tamanho do anterior
         URL[] jars = new URL[plugins.length];
         // Loop para popular o array jars
@@ -46,7 +53,27 @@ public class PluginController implements IPluginController {
                 }
                 if (iplugin != null)
                     iplugin.initialize(core);
+                    loadedPlugins.add(iplugin);
             }
         }
     }
+    @Override
+    public ArrayList<IPlugin> loadedPlugins() {
+        return loadedPlugins;
+    }
+    
+    @Override
+    public IAbstractFactory getFactoryPluginBySupportedExtension(String extension) {
+        ArrayList<IPlugin> loadedPlugins = loadedPlugins();
+        for (IPlugin plugin : loadedPlugins) {
+            if (plugin instanceof IAbstractFactory) {
+                IAbstractFactory factory = (IAbstractFactory) plugin;
+                if (factory.supportedExtensions().contains(extension))
+                    return factory;
+            }
+        }
+        return null;
+    }
+    
+    private ArrayList<IPlugin> loadedPlugins;
 }

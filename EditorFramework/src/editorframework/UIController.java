@@ -5,6 +5,7 @@
  */
 package editorframework;
 
+import editorframework.interfaces.ICore;
 import editorframework.interfaces.IUIController;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -18,6 +19,7 @@ public class UIController implements IUIController {
 
     public UIController() {
         (mainFrame = new MainFrame()).setVisible(true);
+        createMenuItemFileOpen();
     }
     @Override
     public JMenuItem addMenuItem(String menu, String menuItem) {
@@ -39,5 +41,17 @@ public class UIController implements IUIController {
         targetMenu.add(targetMenuItem);
         return targetMenuItem;
     }
+    
+    private void createMenuItemFileOpen(){
+        JMenuItem newItem = this.addMenuItem("File", "Open");
+        if (newItem != null)
+            newItem.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    System.out.println("Voce clicou em File->Open");
+                }
+            });
+    }
+    
     private MainFrame mainFrame;
+    
 }
