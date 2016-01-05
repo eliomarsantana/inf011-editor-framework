@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class PluginController implements IPluginController {
     public PluginController(){
-        loadedPlugins = new ArrayList<IPlugin>();
+        allPlugins = new ArrayList<IPlugin>();
     }
 
     @Override
@@ -53,13 +53,13 @@ public class PluginController implements IPluginController {
                 }
                 if (iplugin != null)
                     iplugin.initialize(core);
-                    loadedPlugins.add(iplugin);
+                    allPlugins.add(iplugin);
             }
         }
     }
     @Override
     public ArrayList<IPlugin> loadedPlugins() {
-        return loadedPlugins;
+        return allPlugins;
     }
     
     @Override
@@ -75,5 +75,5 @@ public class PluginController implements IPluginController {
         return null;
     }
     
-    private ArrayList<IPlugin> loadedPlugins;
+    private ArrayList<IPlugin> allPlugins;
 }
