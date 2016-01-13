@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package editorframework;
 
 import editorframework.interfaces.IAbstractFactory;
@@ -10,7 +5,6 @@ import editorframework.interfaces.ICore;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.IPluginController;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -18,10 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author aluno
- */
+
 public class PluginController implements IPluginController {
     public PluginController(){
         allPlugins = new ArrayList<IPlugin>();
@@ -34,7 +25,6 @@ public class PluginController implements IPluginController {
         // Obtem todos os arquivos dentro desta pasta
         String[] plugins = currentDir.list();
         // Criar um array de URL do mesmo tamanho do anterior
-        System.out.println("Found " + plugins.length + " plugins !");
         URL[] jars = new URL[plugins.length];
         // Loop para popular o array jars
         for (int i = 0; i < plugins.length; i++)
@@ -53,7 +43,6 @@ public class PluginController implements IPluginController {
                     Logger.getLogger(PluginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (iplugin != null)
-                    System.out.println("Initializing plugin " + pluginName);
                     iplugin.initialize(core);
                     allPlugins.add(iplugin);
             }

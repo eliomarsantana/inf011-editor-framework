@@ -1,35 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package editorframework;
 
 import editorframework.interfaces.IAbstractFactory;
 import editorframework.interfaces.ICore;
-import editorframework.interfaces.IDocumentController;
-import editorframework.interfaces.IEditor;
 import editorframework.interfaces.IPlugin;
-import editorframework.interfaces.ISerializer;
 import editorframework.interfaces.IUIController;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
-/**
- *
- * @author aluno
- */
 public class UIController implements IUIController {
 
     public UIController() {
         (mainFrame = new MainFrame()).setVisible(true);
     }
+    
     @Override
     public JMenuItem addMenuItem(String menu, String menuItem) {
         JMenuBar menuBar = mainFrame.getJMenuBar();
@@ -63,13 +50,6 @@ public class UIController implements IUIController {
     }
     
     @Override
-    public void setCentralWidget(JPanel panel)
-    {
-        mainFrame.getContentPane().add(panel);
-        mainFrame.pack();
-    }
-    
-    @Override
     public void fileOpen(ICore core){
         ArrayList<IPlugin> loadedPlugins = core.getPluginController().loadedPlugins();
         Iterator i = loadedPlugins.iterator();
@@ -84,19 +64,7 @@ public class UIController implements IUIController {
                 jfc.addChoosableFileFilter(ff);
             }
         }
-        if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION)
-        {
-            /*File documentFile = jfc.getSelectedFile();
-            String[] documentFileName = documentFile.getName().split("\\.");
-            IAbstractFactory factory = core.getPluginController().getFactoryPluginBySupportedExtension(documentFileName[documentFileName.length-1]);
-            if (factory != null) {
-                ISerializer serializer = factory.createSerializer();
-                IDocumentController document = serializer.load(documentFile.getAbsolutePath());
-                IEditor editor = factory.createEditor();
-                editor.setDocument(document);
-                this.setCentralWidget(editor.getPanel());
-            }*/
-        }
+        jfc.showDialog(null, "Ok");       
     }
     
     private MainFrame mainFrame;
