@@ -10,5 +10,5 @@ package editorframework.interfaces;
  * @author aluno
  */
 public interface IPlugin {
-    boolean initialize(ICore core);
+    void initialize(ICore core);
 }

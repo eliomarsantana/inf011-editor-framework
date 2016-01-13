@@ -34,6 +34,7 @@ public class PluginController implements IPluginController {
         // Obtem todos os arquivos dentro desta pasta
         String[] plugins = currentDir.list();
         // Criar um array de URL do mesmo tamanho do anterior
+        System.out.println("Found " + plugins.length + " plugins !");
         URL[] jars = new URL[plugins.length];
         // Loop para popular o array jars
         for (int i = 0; i < plugins.length; i++)
@@ -52,6 +53,7 @@ public class PluginController implements IPluginController {
                     Logger.getLogger(PluginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (iplugin != null)
+                    System.out.println("Initializing plugin " + pluginName);
                     iplugin.initialize(core);
                     allPlugins.add(iplugin);
             }

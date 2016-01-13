@@ -20,6 +20,7 @@ public class Core implements ICore {
         uiController.createMenuItemFileOpen(this);
         documentController = new DocumentController();
         pluginController = new PluginController();
+        pluginController.initialize(this);
     }
 
     @Override

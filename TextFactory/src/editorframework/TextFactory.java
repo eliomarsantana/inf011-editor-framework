@@ -6,7 +6,9 @@
 package editorframework;
 
 import editorframework.interfaces.IAbstractFactory;
+import editorframework.interfaces.ICore;
 import editorframework.interfaces.IEditor;
+import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.ISerializer;
 import editorframework.interfaces.IToolbox;
 import editorframework.interfaces.IVerifier;
@@ -16,8 +18,13 @@ import java.util.ArrayList;
  *
  * @author Eliomar Santana
  */
-public class TextFactory implements IAbstractFactory{
+public class TextFactory implements IPlugin, IAbstractFactory{
 
+    @Override
+    public void initialize(ICore core) {
+        
+    }
+    
     @Override
     public IEditor createEditor() {
         return new TextEditor();
@@ -47,5 +54,4 @@ public class TextFactory implements IAbstractFactory{
     public String supportedType() {
         return "Text Files";
     }
-    
 }
