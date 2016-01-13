@@ -39,10 +39,13 @@ public class TextFactory implements IAbstractFactory{
     }
 
     @Override
-    public ArrayList<String> supportedExtensions() {
-        ArrayList<String> lista = new ArrayList<String>();
-        lista.add("txt");
-        return lista;
+    public String supportedExtensions() {
+        return "txt";
+    }
+
+    @Override
+    public String supportedType() {
+        return "Text Files";
     }
     
 }

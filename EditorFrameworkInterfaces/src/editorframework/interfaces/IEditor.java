@@ -5,11 +5,13 @@
  */
 package editorframework.interfaces;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author Eliomar Santana
  */
 public interface IEditor{
     public abstract void setDocument(IDocumentController doc);
-    //public abstract JPanel getPanel();
+    public abstract JPanel getPanel();
 }

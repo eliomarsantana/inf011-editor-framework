@@ -7,6 +7,7 @@ package editorframework;
 
 import editorframework.interfaces.IDocumentController;
 import editorframework.interfaces.IEditor;
+import javax.swing.JPanel;
 
 /**
  *
@@ -16,6 +17,11 @@ public class ImageEditor implements IEditor{
 
     @Override
     public void setDocument(IDocumentController doc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public JPanel getPanel() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -39,13 +39,13 @@ public class ImageFactory implements IAbstractFactory{
     }
 
     @Override
-    public ArrayList<String> supportedExtensions() {
-        ArrayList<String> extensions = new ArrayList<String>();
-        extensions.add(0, "jpg");
-        extensions.add(1, "png");
-        extensions.add(2, "gif");
-        
-        return extensions;
+    public String supportedExtensions() {  
+        return "jpg|png|gif";
+    }
+
+    @Override
+    public String supportedType() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

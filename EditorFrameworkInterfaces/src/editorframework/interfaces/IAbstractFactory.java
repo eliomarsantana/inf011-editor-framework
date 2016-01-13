@@ -17,5 +17,6 @@ public interface IAbstractFactory {
     public abstract ISerializer createSerializer();
     public abstract IToolbox createToolbox();
     public abstract IVerifier createVerifier();
-    public abstract ArrayList<String> supportedExtensions();
+    public abstract String supportedExtensions();
+    public abstract String supportedType();
 }
