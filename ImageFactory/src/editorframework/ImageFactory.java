@@ -6,7 +6,9 @@
 package editorframework;
 
 import editorframework.interfaces.IAbstractFactory;
+import editorframework.interfaces.ICore;
 import editorframework.interfaces.IEditor;
+import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.ISerializer;
 import editorframework.interfaces.IToolbox;
 import editorframework.interfaces.IVerifier;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  *
  * @author Eliomar Santana
  */
-public class ImageFactory implements IAbstractFactory{
+public class ImageFactory implements IPlugin, IAbstractFactory{
 
     @Override
     public IEditor createEditor() {
@@ -45,7 +47,12 @@ public class ImageFactory implements IAbstractFactory{
 
     @Override
     public String supportedType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Image Files";
+    }
+
+    @Override
+    public void initialize(ICore core) {
+        
     }
     
 }
