@@ -41,8 +41,12 @@ public class ImageFactory implements IPlugin, IAbstractFactory{
     }
 
     @Override
-    public String supportedExtensions() {  
-        return "jpg|png|gif";
+    public ArrayList<String> supportedExtensions() {
+        ArrayList<String> lista = new ArrayList<String>();
+        lista.add("jpg");
+        lista.add("png");
+        lista.add("gif");
+        return lista;
     }
 
     @Override

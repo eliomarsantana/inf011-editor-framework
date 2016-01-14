@@ -1,6 +1,7 @@
 package editorframework;
 
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.filechooser.FileFilter;
 
 /**
@@ -9,7 +10,7 @@ import javax.swing.filechooser.FileFilter;
  */
 public class FactoryFilter extends FileFilter {
 
-    public FactoryFilter(String typeName, String supportedExtensions)
+    public FactoryFilter(String typeName, ArrayList<String> supportedExtensions)
     {
         this.typeName = typeName;
         this.supportedExtensions = supportedExtensions;
@@ -26,8 +27,7 @@ public class FactoryFilter extends FileFilter {
             return false;
 
         String extension = parts[parts.length - 1];
-        String []extensions = supportedExtensions.split("\\|");
-        for (String extension1 : extensions) {
+        for (String extension1 : supportedExtensions) {
             if (extension.equals(extension1)) {
                 return true;
             }
@@ -41,6 +41,6 @@ public class FactoryFilter extends FileFilter {
     }
     
     private String typeName;
-    private String supportedExtensions;
+    private ArrayList<String> supportedExtensions;
 }
 

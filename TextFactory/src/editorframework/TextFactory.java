@@ -46,8 +46,10 @@ public class TextFactory implements IPlugin, IAbstractFactory{
     }
 
     @Override
-    public String supportedExtensions() {
-        return "txt";
+    public ArrayList<String> supportedExtensions() {
+        ArrayList<String> lista = new ArrayList<String>();
+        lista.add("txt");
+        return lista;
     }
 
     @Override
