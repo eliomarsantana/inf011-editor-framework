@@ -2,14 +2,19 @@ package editorframework;
 
 import editorframework.interfaces.IAbstractFactory;
 import editorframework.interfaces.ICore;
+import editorframework.interfaces.IDocumentController;
+import editorframework.interfaces.IEditor;
 import editorframework.interfaces.IPlugin;
+import editorframework.interfaces.ISerializer;
 import editorframework.interfaces.IUIController;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 public class UIController implements IUIController {
 
@@ -64,7 +69,26 @@ public class UIController implements IUIController {
                 jfc.addChoosableFileFilter(ff);
             }
         }
-        jfc.showDialog(null, "Ok");       
+        if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION)
+        {
+            File documentFile = jfc.getSelectedFile();
+            String[] documentFileName = documentFile.getName().split("\\.");
+            IAbstractFactory factory = core.getPluginController().getFactoryPluginBySupportedExtension(documentFileName[documentFileName.length-1]);
+            if (factory != null) {
+                ISerializer serializer = factory.createSerializer();
+                IDocumentController document = serializer.load(documentFile.getAbsolutePath());
+                IEditor editor = factory.createEditor();
+                editor.setDocument(document);
+                this.setCentralWidget(editor.getPanel());
+            }
+        }       
+    }
+    
+    @Override
+    public void setCentralWidget(JPanel panel)
+    {
+        mainFrame.getContentPane().add(panel);
+        mainFrame.pack();
     }
     
     private MainFrame mainFrame;
