@@ -4,13 +4,14 @@ import editorframework.interfaces.ICore;
 import editorframework.interfaces.IDocumentController;
 import editorframework.interfaces.IPluginController;
 import editorframework.interfaces.IUIController;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 
 public class Core implements ICore {
     public Core() throws Exception {
         uiController = new UIController();
         uiController.createMenuItemFileOpen(this);
-        documentController = new DocumentController();
+        documentController = new DocumentController(pdfDocument);
         pluginController = new PluginController();
         pluginController.initialize(this);
     }
@@ -33,4 +34,5 @@ public class Core implements ICore {
     private IUIController uiController;
     private IDocumentController documentController;
     private IPluginController pluginController;
+    private PDDocument pdfDocument;
 }
