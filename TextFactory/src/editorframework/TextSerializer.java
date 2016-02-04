@@ -5,7 +5,7 @@
  */
 package editorframework;
 
-import editorframework.interfaces.IDocumentController;
+import editorframework.interfaces.IDocument;
 import editorframework.interfaces.ISerializer;
 
 /**
@@ -13,15 +13,10 @@ import editorframework.interfaces.ISerializer;
  * @author Eliomar Santana
  */
 public class TextSerializer implements ISerializer{
-
     @Override
-    public IDocumentController load(String fileName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public IDocument openDocument(String fileName) {
+        IDocument document = new TextDocument();
+        document.open(fileName);
+        return document;
     }
-
-    @Override
-    public boolean save(IDocumentController doc, String fileName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

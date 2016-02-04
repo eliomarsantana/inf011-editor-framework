@@ -5,24 +5,16 @@
  */
 package editorframework;
 
-import editorframework.interfaces.IDocumentController;
-import editorframework.interfaces.IEditor;
-import javax.swing.JPanel;
-
+import editorframework.interfaces.Editor;
+import javax.swing.JComponent;
 /**
  *
  * @author Eliomar Santana
  */
-public class ImageEditor implements IEditor{
+public class ImageEditor extends Editor{
 
     @Override
-    public void setDocument(IDocumentController doc) {
+    public JComponent getView() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public JPanel getPanel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }   
 }

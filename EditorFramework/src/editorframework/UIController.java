@@ -3,23 +3,28 @@ package editorframework;
 import editorframework.interfaces.IAbstractFactory;
 import editorframework.interfaces.ICore;
 import editorframework.interfaces.IDocumentController;
-import editorframework.interfaces.IEditor;
+import editorframework.interfaces.Editor;
+import editorframework.interfaces.IDocument;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.ISerializer;
 import editorframework.interfaces.IUIController;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 public class UIController implements IUIController {
 
-    public UIController() {
-        (mainFrame = new MainFrame()).setVisible(true);
+    public UIController(ICore core) {
+        this.core = core;
+        mainFrame = new MainFrame();
+        mainFrame.setVisible(true);      
+        createMenuItemFileOpen(core);
     }
     
     @Override
@@ -56,13 +61,14 @@ public class UIController implements IUIController {
     
     @Override
     public void fileOpen(ICore core){
+        IPlugin plugin = null;
         ArrayList<IPlugin> loadedPlugins = core.getPluginController().loadedPlugins();
         Iterator i = loadedPlugins.iterator();
         JFileChooser jfc = new JFileChooser();
 	jfc.setDialogTitle("Open Document");
 	jfc.setDialogType(JFileChooser.OPEN_DIALOG);
         while (i.hasNext()) {
-            IPlugin plugin = (IPlugin) i.next();
+            plugin = (IPlugin) i.next();
             if (plugin instanceof IAbstractFactory) {
                 IAbstractFactory factoryPlugin = (IAbstractFactory) plugin;
                 FactoryFilter ff = new FactoryFilter(factoryPlugin.supportedType(), factoryPlugin.supportedExtensions());
@@ -75,21 +81,25 @@ public class UIController implements IUIController {
             String[] documentFileName = documentFile.getName().split("\\.");
             IAbstractFactory factory = core.getPluginController().getFactoryPluginBySupportedExtension(documentFileName[documentFileName.length-1]);
             if (factory != null) {
+                Editor editor = factory.createEditor();
                 ISerializer serializer = factory.createSerializer();
-                IDocumentController document = serializer.load(documentFile.getAbsolutePath());
-                IEditor editor = factory.createEditor();
+                JOptionPane.showMessageDialog(null, "ExtensÃ£o " + documentFileName[documentFileName.length-1] + " aberta pelo plugin " + plugin.getClass().getSimpleName());
+                IDocumentController documentController = core.getDocumentController();
+                documentController.setSerializer(serializer);
+                IDocument document = documentController.openDocument(documentFile.getAbsolutePath());
                 editor.setDocument(document);
-                this.setCentralWidget(editor.getPanel());
+                setEditor(editor);
             }
         }       
     }
     
     @Override
-    public void setCentralWidget(JPanel panel)
-    {
-        mainFrame.getContentPane().add(panel);
+    public void setEditor(Editor editor) {
+        JComponent view = editor.getView();
+        mainFrame.getContentPane().add(view);
         mainFrame.pack();
     }
-    
+ 
     private MainFrame mainFrame;
+    private ICore core;
 }

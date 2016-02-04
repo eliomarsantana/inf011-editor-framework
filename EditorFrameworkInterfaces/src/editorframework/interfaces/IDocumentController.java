@@ -5,12 +5,11 @@
  */
 package editorframework.interfaces;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-
 /**
  *
  * @author aluno
  */
 public interface IDocumentController {
-    public abstract PDDocument getPDDocument();
+    public void setSerializer(ISerializer serializer);
+    public IDocument openDocument(String fileName);
 }

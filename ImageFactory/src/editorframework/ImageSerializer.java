@@ -5,6 +5,7 @@
  */
 package editorframework;
 
+import editorframework.interfaces.IDocument;
 import editorframework.interfaces.IDocumentController;
 import editorframework.interfaces.ISerializer;
 
@@ -15,13 +16,7 @@ import editorframework.interfaces.ISerializer;
 public class ImageSerializer implements ISerializer{
 
     @Override
-    public IDocumentController load(String fileName) {
+    public IDocument openDocument(String fileName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean save(IDocumentController doc, String fileName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }  
 }

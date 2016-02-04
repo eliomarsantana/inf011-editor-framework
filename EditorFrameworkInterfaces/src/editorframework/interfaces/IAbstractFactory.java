@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public interface IAbstractFactory {
   
-    public abstract IEditor createEditor();
+    public abstract Editor createEditor();
     public abstract ISerializer createSerializer();
     public abstract IToolbox createToolbox();
     public abstract IVerifier createVerifier();

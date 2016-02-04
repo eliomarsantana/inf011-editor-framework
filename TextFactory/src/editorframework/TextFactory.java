@@ -7,7 +7,7 @@ package editorframework;
 
 import editorframework.interfaces.IAbstractFactory;
 import editorframework.interfaces.ICore;
-import editorframework.interfaces.IEditor;
+import editorframework.interfaces.Editor;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.ISerializer;
 import editorframework.interfaces.IToolbox;
@@ -26,7 +26,7 @@ public class TextFactory implements IPlugin, IAbstractFactory{
     }
     
     @Override
-    public IEditor createEditor() {
+    public Editor createEditor() {
         return new TextEditor();
     }
 

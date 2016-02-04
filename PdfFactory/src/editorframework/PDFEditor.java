@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package editorframework;
 
-import editorframework.interfaces.IDocumentController;
-import editorframework.interfaces.IEditor;
+import editorframework.interfaces.Editor;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
+import javax.swing.JComponent;
 import org.apache.pdfbox.pdfviewer.PDFPagePanel;
 import org.apache.pdfbox.pdmodel.PDPage;
 
@@ -19,7 +14,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
  *
  * @author Eliomar Santana
  */
-public class PDFEditor implements IEditor{
+public class PDFEditor extends Editor{
 
     public PDFEditor() {
         try {
@@ -30,16 +25,10 @@ public class PDFEditor implements IEditor{
     }
 
     @Override
-    public void setDocument(IDocumentController doc) {
-        List<PDPage> pdfPages = ((PDFDocument) doc).getPDDocument().getDocumentCatalog().getAllPages();
-        pdfPagePanel.setPage(pdfPages.get(0));
+    public JComponent getView() {
+         List<PDPage> pdfPages = ((PDFDocument) document).getPDDocument().getDocumentCatalog().getAllPages();
+         pdfPagePanel.setPage(pdfPages.get(0));
+         return pdfPagePanel;
     }
-
-    @Override
-    public JPanel getPanel() {
-        return pdfPagePanel;
-    }
-    
     private PDFPagePanel pdfPagePanel;
-    
 }

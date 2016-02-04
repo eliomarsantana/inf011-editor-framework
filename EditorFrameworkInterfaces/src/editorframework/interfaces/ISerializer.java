@@ -10,6 +10,5 @@ package editorframework.interfaces;
  * @author Eliomar Santana
  */
 public interface ISerializer {
-    public abstract IDocumentController load(String fileName);
-    public abstract boolean save(IDocumentController doc, String fileName);
+    public IDocument openDocument(String fileName);
 }
