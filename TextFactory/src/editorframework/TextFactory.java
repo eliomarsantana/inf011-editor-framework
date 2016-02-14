@@ -11,6 +11,7 @@ import editorframework.interfaces.Editor;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.ISerializer;
 import editorframework.interfaces.IToolbox;
+import editorframework.interfaces.IToolkit;
 import editorframework.interfaces.IVerifier;
 import java.util.ArrayList;
 
@@ -55,5 +56,10 @@ public class TextFactory implements IPlugin, IAbstractFactory{
     @Override
     public String supportedType() {
         return "Text Files";
+    }
+
+    @Override
+    public IToolkit createTookit() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
