@@ -5,7 +5,6 @@
  */
 package editorframework.interfaces;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +13,6 @@ import java.util.ArrayList;
  */
 public interface IPluginController {
     public abstract ArrayList<IPlugin> loadedPlugins();
-    public abstract void initialize(ICore core) throws MalformedURLException;
+    public abstract void initialize(ICore core);
     public abstract IAbstractFactory getFactoryPluginBySupportedExtension(String extension);
 }

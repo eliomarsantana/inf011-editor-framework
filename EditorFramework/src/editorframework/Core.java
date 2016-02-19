@@ -7,11 +7,18 @@ import editorframework.interfaces.IUIController;
 
 
 public class Core implements ICore {
-    public Core() throws Exception {
+
+    public Core(){
         uiController = new UIController(this);
         documentController = new DocumentController();
         pluginController = new PluginController();
         pluginController.initialize(this);
+    }
+    
+    public static Core getInstance() {
+        if(core == null)
+            core = new Core();
+        return core;
     }
 
     @Override
@@ -32,4 +39,5 @@ public class Core implements ICore {
     private IUIController uiController;
     private IDocumentController documentController;
     private IPluginController pluginController;
+    private static Core core;
 }
