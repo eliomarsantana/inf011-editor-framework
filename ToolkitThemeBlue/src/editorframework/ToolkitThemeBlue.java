@@ -13,15 +13,15 @@ import editorframework.interfaces.IToolkitTheme;
  *
  * @author Eliomar Santana
  */
-public class ToolkitThemeFactory implements IToolkitTheme, IPlugin{
+public class ToolkitThemeBlue implements IToolkitTheme, IPlugin{
 
     @Override
     public void paint() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("pintando tela de azul");
     }   
 
     @Override
     public void initialize(ICore core) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 }

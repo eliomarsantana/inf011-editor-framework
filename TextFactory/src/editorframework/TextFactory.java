@@ -60,6 +60,6 @@ public class TextFactory implements IPlugin, IAbstractFactory{
 
     @Override
     public IToolkit createTookit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new TextToolkit();
     }
 }

@@ -5,8 +5,6 @@
  */
 package editorframework;
 
-import editorframework.interfaces.ICore;
-import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.IToolkit;
 import editorframework.interfaces.IToolkitTheme;
 
@@ -14,16 +12,10 @@ import editorframework.interfaces.IToolkitTheme;
  *
  * @author Eliomar Santana
  */
-public class TextToolkit implements IPlugin, IToolkit{
+public class TextToolkit implements IToolkit{
 
     @Override
     public void setTheme(IToolkitTheme theme) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        theme.paint();
     }
-
-    @Override
-    public void initialize(ICore core) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

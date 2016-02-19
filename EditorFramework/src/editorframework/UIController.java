@@ -7,10 +7,13 @@ import editorframework.interfaces.Editor;
 import editorframework.interfaces.IDocument;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.ISerializer;
+import editorframework.interfaces.IToolkitTheme;
 import editorframework.interfaces.IUIController;
+import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -24,7 +27,8 @@ public class UIController implements IUIController {
         this.core = core;
         mainFrame = new MainFrame();
         mainFrame.setVisible(true);      
-        createMenuItemFileOpen(core);
+        this.createMenuItemFileOpen(core);
+        this.loadThemeCombobox(core);
     }
     
     @Override
@@ -91,6 +95,26 @@ public class UIController implements IUIController {
                 setEditor(editor);
             }
         }       
+    }
+    
+    @Override
+    public void loadThemeCombobox(ICore core) {
+        Container c = mainFrame.getContentPane();
+        JComboBox combobox = new JComboBox(new Object[]{"Item", "Item1", "Item2"});
+        c.add(combobox);
+       /* IPlugin plugin = null;
+        ArrayList<IPlugin> loadedPlugins = core.getPluginController().loadedPlugins();
+        Iterator i = loadedPlugins.iterator();
+        while (i.hasNext()) {
+            plugin = (IPlugin) i.next();
+            if (plugin instanceof IToolkitTheme) {
+                //combobox.addItem(plugin.getClass().getName());
+                //mainFrame.add(combobox);
+                //IToolkitTheme themePlugin = (IToolkitTheme) plugin;
+                //themePlugin.paint();
+            }
+        }*/
+        
     }
     
     @Override

@@ -67,4 +67,9 @@ public class PluginController implements IPluginController {
     }
     
     private ArrayList<IPlugin> allPlugins;
+
+    @Override
+    public ArrayList<IPlugin> getPluginsByType(IPlugin typePlugin) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
