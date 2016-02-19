@@ -89,7 +89,7 @@ public class MainFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        new Core();
+        Core core = Core.getInstance();
         /* Create and display the form */
     }
 

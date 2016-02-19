@@ -14,6 +14,12 @@ public class Core implements ICore {
         pluginController = new PluginController();
         pluginController.initialize(this);
     }
+    
+    public static Core getInstance() {
+        if(core == null)
+            core = new Core();
+        return core;
+    }
 
     @Override
     public IUIController getUIController() {
@@ -33,4 +39,5 @@ public class Core implements ICore {
     private IUIController uiController;
     private IDocumentController documentController;
     private IPluginController pluginController;
+    private static Core core;
 }
