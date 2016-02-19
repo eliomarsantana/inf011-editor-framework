@@ -7,7 +7,7 @@ import editorframework.interfaces.IUIController;
 
 
 public class Core implements ICore {
-    public Core() throws Exception {
+    public Core(){
         uiController = new UIController();
         uiController.createMenuItemFileOpen(this);
         documentController = new DocumentController();
