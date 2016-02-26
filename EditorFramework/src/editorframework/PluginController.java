@@ -42,9 +42,10 @@ public class PluginController implements IPluginController {
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
                     Logger.getLogger(PluginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if (iplugin != null)
+                if (iplugin != null){
                     iplugin.initialize(core);
                     allPlugins.add(iplugin);
+                }
             }
         }
     }
@@ -69,7 +70,8 @@ public class PluginController implements IPluginController {
     private ArrayList<IPlugin> allPlugins;
 
     @Override
-    public ArrayList<IPlugin> getPluginsByType(IPlugin typePlugin) {
+    public ArrayList<IPlugin> getPluginsByType(String className) {
+        //iplugin = (IPlugin) Class.forName("editorframework." + pluginName, true, ulc).newInstance();
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

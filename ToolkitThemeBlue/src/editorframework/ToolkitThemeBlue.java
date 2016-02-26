@@ -13,7 +13,7 @@ import editorframework.interfaces.IToolkitTheme;
  *
  * @author Eliomar Santana
  */
-public class ToolkitThemeBlue implements IToolkitTheme, IPlugin{
+public class ToolkitThemeBlue implements IPlugin, IToolkitTheme{
 
     @Override
     public void paint() {

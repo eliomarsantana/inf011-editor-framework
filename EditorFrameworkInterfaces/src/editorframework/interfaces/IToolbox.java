@@ -10,5 +10,5 @@ package editorframework.interfaces;
  * @author Eliomar Santana
  */
 public interface IToolbox {
-    
+    public abstract void setTheme(IToolkitTheme theme);
 }

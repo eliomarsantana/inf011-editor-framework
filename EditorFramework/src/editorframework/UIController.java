@@ -99,10 +99,10 @@ public class UIController implements IUIController {
     
     @Override
     public void loadThemeCombobox(ICore core) {
-        Container c = mainFrame.getContentPane();
-        JComboBox combobox = new JComboBox(new Object[]{"Item", "Item1", "Item2"});
-        c.add(combobox);
-       /* IPlugin plugin = null;
+    //    Container c = mainFrame.getContentPane();
+    //    JComboBox combobox = new JComboBox(new Object[]{"Item", "Item1", "Item2"});
+     //   c.add(combobox);
+        IPlugin plugin = null;
         ArrayList<IPlugin> loadedPlugins = core.getPluginController().loadedPlugins();
         Iterator i = loadedPlugins.iterator();
         while (i.hasNext()) {
@@ -113,7 +113,7 @@ public class UIController implements IUIController {
                 //IToolkitTheme themePlugin = (IToolkitTheme) plugin;
                 //themePlugin.paint();
             }
-        }*/
+        }
         
     }
     

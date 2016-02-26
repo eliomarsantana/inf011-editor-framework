@@ -6,11 +6,15 @@
 package editorframework;
 
 import editorframework.interfaces.IToolbox;
+import editorframework.interfaces.IToolkitTheme;
 
 /**
  *
  * @author Eliomar Santana
  */
 public class TextToolbox implements IToolbox{
-    
+    @Override
+    public void setTheme(IToolkitTheme theme) {
+        theme.paint();
+    }
 }

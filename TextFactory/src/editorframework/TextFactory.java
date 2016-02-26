@@ -11,7 +11,6 @@ import editorframework.interfaces.Editor;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.ISerializer;
 import editorframework.interfaces.IToolbox;
-import editorframework.interfaces.IToolkit;
 import editorframework.interfaces.IVerifier;
 import java.util.ArrayList;
 
@@ -56,10 +55,5 @@ public class TextFactory implements IPlugin, IAbstractFactory{
     @Override
     public String supportedType() {
         return "Text Files";
-    }
-
-    @Override
-    public IToolkit createTookit() {
-        return new TextToolkit();
     }
 }
