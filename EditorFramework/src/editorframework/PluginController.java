@@ -70,8 +70,14 @@ public class PluginController implements IPluginController {
     private ArrayList<IPlugin> allPlugins;
 
     @Override
-    public ArrayList<IPlugin> getPluginsByType(String className) {
-        //iplugin = (IPlugin) Class.forName("editorframework." + pluginName, true, ulc).newInstance();
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<IPlugin> getPluginsByType(Class className) {
+        ArrayList<IPlugin> loadedPlugins = loadedPlugins();
+        ArrayList<IPlugin> plugins = null; 
+        for (IPlugin plugin : loadedPlugins) {
+            if(plugin.getClass() == className){
+                plugins.add(plugin);
+            }
+        }
+        return plugins;
     }
 }

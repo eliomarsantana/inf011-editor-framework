@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public interface IPluginController {
     public abstract ArrayList<IPlugin> loadedPlugins();
-    public abstract ArrayList<IPlugin> getPluginsByType(String className);
+    public abstract ArrayList<IPlugin> getPluginsByType(Class className);
     public abstract void initialize(ICore core) throws MalformedURLException;
     public abstract IAbstractFactory getFactoryPluginBySupportedExtension(String extension);
 }

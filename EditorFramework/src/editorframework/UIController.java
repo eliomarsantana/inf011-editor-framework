@@ -13,6 +13,9 @@ import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -20,6 +23,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JToolBar;
 
 public class UIController implements IUIController {
 
@@ -27,8 +31,9 @@ public class UIController implements IUIController {
         this.core = core;
         mainFrame = new MainFrame();
         mainFrame.setVisible(true);      
-        this.createMenuItemFileOpen(core);
-        this.loadThemeCombobox(core);
+        createMenuItemFileOpen(core);
+        
+        
     }
     
     @Override
@@ -58,7 +63,7 @@ public class UIController implements IUIController {
         if (newItem != null)
             newItem.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    fileOpen(core);
+                    fileOpen(core);                   
                 }
             });
     }
@@ -93,27 +98,59 @@ public class UIController implements IUIController {
                 IDocument document = documentController.openDocument(documentFile.getAbsolutePath());
                 editor.setDocument(document);
                 setEditor(editor);
+                loadThemeCombobox(core);
             }
         }       
     }
     
+    /*
+    private void createToolBar() {
+        
+        JToolBar toolbar = new JToolBar();
+
+        ImageIcon icon = new ImageIcon("exit.png");
+
+        JButton exitButton = new JButton(icon);
+        toolbar.add(exitButton);
+        
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        });
+
+        add(toolbar, BorderLayout.NORTH);        
+    }
+
+    */
+    
     @Override
     public void loadThemeCombobox(ICore core) {
-    //    Container c = mainFrame.getContentPane();
-    //    JComboBox combobox = new JComboBox(new Object[]{"Item", "Item1", "Item2"});
-     //   c.add(combobox);
-        IPlugin plugin = null;
-        ArrayList<IPlugin> loadedPlugins = core.getPluginController().loadedPlugins();
-        Iterator i = loadedPlugins.iterator();
-        while (i.hasNext()) {
-            plugin = (IPlugin) i.next();
+            JToolBar toolbar = new JToolBar();
+            JButton exitButton = new JButton("TESte");
+            toolbar.add(exitButton);
+            mainFrame.add(toolbar);
+            //    JComboBox combobox = new JComboBox(new Object[]{"Item", "Item1", "Item2"});
+            //   c.add(combobox)
+          
+            IPlugin plugin = null;
+            
+            ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
+            Iterator i = themes.iterator();
+            while (i.hasNext()) {
+                plugin = (IPlugin) i.next();
             if (plugin instanceof IToolkitTheme) {
+                IToolkitTheme themePlugin = (IToolkitTheme) plugin;
+                System.out.println(themePlugin.getClass().getName());
+                
+            }
                 //combobox.addItem(plugin.getClass().getName());
                 //mainFrame.add(combobox);
                 //IToolkitTheme themePlugin = (IToolkitTheme) plugin;
                 //themePlugin.paint();
             }
-        }
+       
         
     }
     
