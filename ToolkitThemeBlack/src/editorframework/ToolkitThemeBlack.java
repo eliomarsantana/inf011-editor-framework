@@ -5,18 +5,24 @@
  */
 package editorframework;
 
-import editorframework.interfaces.IToolbox;
+import editorframework.interfaces.ICore;
+import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.IToolkitTheme;
 
 /**
  *
  * @author Eliomar Santana
  */
-public class TextToolbox implements IToolbox{
+public class ToolkitThemeBlack implements IPlugin, IToolkitTheme{
 
     @Override
-    public void setTheme(IToolkitTheme theme) {
-        theme.paint();
+    public void initialize(ICore core) {
+
     }
 
+    @Override
+    public void paint() {
+        System.out.println("pintando tela de preto");
+    }
+    
 }

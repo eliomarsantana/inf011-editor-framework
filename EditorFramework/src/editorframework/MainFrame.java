@@ -7,6 +7,7 @@ package editorframework;
 
 import editorframework.interfaces.ICore;
 import javax.swing.JMenuItem;
+import javax.swing.JToolBar;
 
 /**
  *
@@ -81,8 +82,12 @@ public class MainFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        new Core();
         /* Create and display the form */
+        new Core();
+    }
+    
+    public JToolBar getToolBar(){
+        return jToolBar1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

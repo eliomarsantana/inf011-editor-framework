@@ -54,6 +54,6 @@ public class PDFFactory implements IPlugin, IAbstractFactory{
 
     @Override
     public void initialize(ICore core) {
-
     }  
+
 }

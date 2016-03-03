@@ -9,7 +9,6 @@ import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.ISerializer;
 import editorframework.interfaces.IToolkitTheme;
 import editorframework.interfaces.IUIController;
-import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,10 +29,8 @@ public class UIController implements IUIController {
     public UIController(ICore core) {
         this.core = core;
         mainFrame = new MainFrame();
-        mainFrame.setVisible(true);      
-        createMenuItemFileOpen(core);
-        
-        
+        mainFrame.setVisible(true); 
+        loadThemeCombobox(core);
     }
     
     @Override
@@ -69,7 +66,7 @@ public class UIController implements IUIController {
     }
     
     @Override
-    public void fileOpen(ICore core){
+    public void fileOpen(final ICore core){
         IPlugin plugin = null;
         ArrayList<IPlugin> loadedPlugins = core.getPluginController().loadedPlugins();
         Iterator i = loadedPlugins.iterator();
@@ -98,7 +95,6 @@ public class UIController implements IUIController {
                 IDocument document = documentController.openDocument(documentFile.getAbsolutePath());
                 editor.setDocument(document);
                 setEditor(editor);
-                loadThemeCombobox(core);
             }
         }       
     }
@@ -127,31 +123,29 @@ public class UIController implements IUIController {
     
     @Override
     public void loadThemeCombobox(ICore core) {
-            JToolBar toolbar = new JToolBar();
-            JButton exitButton = new JButton("TESte");
-            toolbar.add(exitButton);
-            mainFrame.add(toolbar);
-            //    JComboBox combobox = new JComboBox(new Object[]{"Item", "Item1", "Item2"});
+            JToolBar toolbar = mainFrame.getToolBar();
+            //JButton exitButton = new JButton("TESte");
+            JComboBox combobox = new JComboBox();
             //   c.add(combobox)
-          
+            String name;
             IPlugin plugin = null;
             
             ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
             Iterator i = themes.iterator();
             while (i.hasNext()) {
                 plugin = (IPlugin) i.next();
-            if (plugin instanceof IToolkitTheme) {
-                IToolkitTheme themePlugin = (IToolkitTheme) plugin;
-                System.out.println(themePlugin.getClass().getName());
+                if (plugin instanceof IToolkitTheme) {
+                    name = (plugin.getClass().getName()).split("\\.")[1];
+                    combobox.addItem(name);
                 
-            }
+                }
                 //combobox.addItem(plugin.getClass().getName());
                 //mainFrame.add(combobox);
                 //IToolkitTheme themePlugin = (IToolkitTheme) plugin;
                 //themePlugin.paint();
             }
-       
-        
+            toolbar.add(combobox);
+            mainFrame.add(toolbar);    
     }
     
     @Override
