@@ -5,6 +5,7 @@
  */
 package editorframework;
 
+import editorframework.interfaces.ICore;
 import editorframework.interfaces.IToolbox;
 import editorframework.interfaces.IToolkitTheme;
 
@@ -15,7 +16,7 @@ import editorframework.interfaces.IToolkitTheme;
 public class PDFToolbox implements IToolbox{
 
     @Override
-    public void setTheme(IToolkitTheme theme) {
+    public void setTheme(IToolkitTheme theme, ICore core) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

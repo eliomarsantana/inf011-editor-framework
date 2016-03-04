@@ -5,6 +5,7 @@
  */
 package editorframework.interfaces;
 
+import java.awt.Component;
 import javax.swing.JMenuItem;
 
 /**
@@ -17,4 +18,5 @@ public interface IUIController {
     public void fileOpen(ICore core);
     public void setEditor(Editor editor);
     public void loadThemeCombobox(ICore core);
+    public abstract void addToolBarItem(Component c);
 }

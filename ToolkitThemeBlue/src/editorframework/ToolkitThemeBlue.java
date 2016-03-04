@@ -8,15 +8,19 @@ package editorframework;
 import editorframework.interfaces.ICore;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.IToolkitTheme;
+import java.awt.Color;
+import java.awt.Component;
 
 /**
  *
  * @author Eliomar Santana
  */
-public class ToolkitThemeBlue implements IPlugin, IToolkitTheme{
+public class ToolkitThemeBlue implements IPlugin, IToolkitTheme {
 
     @Override
-    public void paint() {
+    public void paint(Component c) {
+        c.setBackground(Color.BLUE);
+        
         System.out.println("pintando tela de azul");
     }   
 

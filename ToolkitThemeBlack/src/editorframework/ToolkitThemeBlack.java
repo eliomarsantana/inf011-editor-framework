@@ -8,6 +8,8 @@ package editorframework;
 import editorframework.interfaces.ICore;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.IToolkitTheme;
+import java.awt.Color;
+import java.awt.Component;
 
 /**
  *
@@ -16,13 +18,14 @@ import editorframework.interfaces.IToolkitTheme;
 public class ToolkitThemeBlack implements IPlugin, IToolkitTheme{
 
     @Override
-    public void initialize(ICore core) {
-
-    }
+    public void paint(Component c) {
+        c.setBackground(Color.BLACK);
+        System.out.println("pintando tela de preta");
+    }   
 
     @Override
-    public void paint() {
-        System.out.println("pintando tela de preto");
+    public void initialize(ICore core) {
+        
     }
     
 }

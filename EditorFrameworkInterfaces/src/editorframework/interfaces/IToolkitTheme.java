@@ -5,10 +5,12 @@
  */
 package editorframework.interfaces;
 
+import java.awt.Component;
+
 /**
  *
  * @author Eliomar Santana
  */
 public interface IToolkitTheme {
-    public abstract void paint();
+    public abstract void paint(Component c);
 }

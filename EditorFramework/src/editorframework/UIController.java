@@ -7,8 +7,10 @@ import editorframework.interfaces.Editor;
 import editorframework.interfaces.IDocument;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.ISerializer;
+import editorframework.interfaces.IToolbox;
 import editorframework.interfaces.IToolkitTheme;
 import editorframework.interfaces.IUIController;
+import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,8 +31,8 @@ public class UIController implements IUIController {
     public UIController(ICore core) {
         this.core = core;
         mainFrame = new MainFrame();
-        mainFrame.setVisible(true); 
-        loadThemeCombobox(core);
+        mainFrame.setVisible(true);
+        createMenuItemFileOpen(core); 
     }
     
     @Override
@@ -60,13 +62,13 @@ public class UIController implements IUIController {
         if (newItem != null)
             newItem.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    fileOpen(core);                   
+                    fileOpen(core);
                 }
             });
     }
     
     @Override
-    public void fileOpen(final ICore core){
+    public void fileOpen(ICore core){
         IPlugin plugin = null;
         ArrayList<IPlugin> loadedPlugins = core.getPluginController().loadedPlugins();
         Iterator i = loadedPlugins.iterator();
@@ -95,57 +97,60 @@ public class UIController implements IUIController {
                 IDocument document = documentController.openDocument(documentFile.getAbsolutePath());
                 editor.setDocument(document);
                 setEditor(editor);
+                loadThemeCombobox(core);
             }
         }       
     }
     
-    /*
-    private void createToolBar() {
-        
-        JToolBar toolbar = new JToolBar();
-
-        ImageIcon icon = new ImageIcon("exit.png");
-
-        JButton exitButton = new JButton(icon);
-        toolbar.add(exitButton);
-        
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                System.exit(0);
-            }
-        });
-
-        add(toolbar, BorderLayout.NORTH);        
-    }
-
-    */
-    
     @Override
-    public void loadThemeCombobox(ICore core) {
-            JToolBar toolbar = mainFrame.getToolBar();
-            //JButton exitButton = new JButton("TESte");
-            JComboBox combobox = new JComboBox();
-            //   c.add(combobox)
-            String name;
-            IPlugin plugin = null;
-            
-            ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
-            Iterator i = themes.iterator();
-            while (i.hasNext()) {
-                plugin = (IPlugin) i.next();
-                if (plugin instanceof IToolkitTheme) {
-                    name = (plugin.getClass().getName()).split("\\.")[1];
-                    combobox.addItem(name);
-                
-                }
-                //combobox.addItem(plugin.getClass().getName());
-                //mainFrame.add(combobox);
-                //IToolkitTheme themePlugin = (IToolkitTheme) plugin;
-                //themePlugin.paint();
+    public void loadThemeCombobox(final ICore core) {
+        String name = "";  
+        combobox = new JComboBox();
+        
+        IPlugin plugin = null;
+        ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
+        Iterator i = themes.iterator();
+        while (i.hasNext()) {
+            plugin = (IPlugin) i.next();
+            if (plugin instanceof IToolkitTheme) {
+                name = (plugin.getClass().getName()).split("\\.")[1];            
+                combobox.addItem(name);         
             }
-            toolbar.add(combobox);
-            mainFrame.add(toolbar);    
+            
+        }       
+        
+        
+        combobox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    try {
+                        
+                        String valor = (String)(combobox.getSelectedItem());
+                         IPlugin plugin = null;
+                        Class t = Class.forName("editorframework." + valor);
+                        IToolkitTheme itt = (IToolkitTheme) t.newInstance();
+                        
+                        ArrayList<IPlugin> p = core.getPluginController().loadedPlugins();
+                        Iterator i = p.iterator();
+                        while (i.hasNext()) {
+                            plugin = (IPlugin) i.next();
+                            if (plugin instanceof IAbstractFactory) {
+                                 IAbstractFactory factoryPlugin = (IAbstractFactory) plugin;
+                                 factoryPlugin.createToolbox().setTheme(itt, core);
+                            }
+                        }
+                    
+                    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+                        Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
+                    }                   
+                }
+            });
+            addToolBarItem(combobox);
+       
+    }
+    
+   @Override
+    public void addToolBarItem(Component c) {
+       mainFrame.getToolBar().add(c);
     }
     
     @Override
@@ -157,4 +162,5 @@ public class UIController implements IUIController {
  
     private MainFrame mainFrame;
     private ICore core;
+    private JComboBox combobox;
 }
