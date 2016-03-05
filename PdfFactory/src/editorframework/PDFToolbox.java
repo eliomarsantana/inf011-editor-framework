@@ -24,10 +24,6 @@ import javax.swing.JOptionPane;
  * @author Eliomar Santana
  */
 public class PDFToolbox implements IToolbox{
-
-    JComboBox combobox = new JComboBox();
-    JButton newButton = new JButton();
-    JButton newButton2 = new JButton();
     
     @Override
     public void initialize(ICore core) {
@@ -80,6 +76,8 @@ public class PDFToolbox implements IToolbox{
     @Override
     public void setTheme(IToolkitTheme theme, Component c) {
        theme.paint(c);
-    }
-    
+    }   
+    JComboBox combobox = new JComboBox();
+    JButton newButton = new JButton();
+    JButton newButton2 = new JButton();   
 }

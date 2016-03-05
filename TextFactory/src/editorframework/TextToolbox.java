@@ -25,10 +25,6 @@ import javax.swing.JOptionPane;
  */
 public class TextToolbox implements IToolbox{
 
-    JComboBox combobox = new JComboBox();
-    JButton newButton = new JButton();
-    JButton newButton2 = new JButton();
-    
     @Override
     public void initialize(ICore core) {
         
@@ -84,7 +80,10 @@ public class TextToolbox implements IToolbox{
     public void setTheme(IToolkitTheme theme, Component c) {    
         theme.paint(c);      
     }
-
+    
+    JComboBox combobox = new JComboBox();
+    JButton newButton = new JButton();
+    JButton newButton2 = new JButton();
     
 }
 

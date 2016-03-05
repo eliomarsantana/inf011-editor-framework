@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 public class Core implements ICore {
     public Core() throws Exception {
         uiController = new UIController(this);
-        uiController.createMenuItemFileOpen(this);
         documentController = new DocumentController();
         pluginController = new PluginController();
         pluginController.initialize(this);
