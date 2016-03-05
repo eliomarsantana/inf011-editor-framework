@@ -19,8 +19,7 @@ public class ToolkitThemeBlack implements IPlugin, IToolkitTheme{
 
     @Override
     public void paint(Component c) {
-        c.setBackground(Color.BLACK);
-        System.out.println("pintando tela de preta");
+        c.setBackground(Color.BLACK);  
     }   
 
     @Override

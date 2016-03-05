@@ -17,6 +17,5 @@ public interface IUIController {
     public abstract void createMenuItemFileOpen(ICore core);
     public void fileOpen(ICore core);
     public void setEditor(Editor editor);
-    public void loadThemeCombobox(ICore core);
-    public abstract void addToolBarItem(Component c);
+    public abstract void addToolBarItem(Component component);
 }

@@ -83,7 +83,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-        new Core();
+        Core core = Core.getInstance();
     }
     
     public JToolBar getToolBar(){
