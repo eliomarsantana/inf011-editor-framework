@@ -13,4 +13,5 @@ public interface ICore {
     IUIController getUIController();
     IDocumentController getDocumentController();
     IPluginController getPluginController();
+    public abstract IProjectController getProjectController();
 }

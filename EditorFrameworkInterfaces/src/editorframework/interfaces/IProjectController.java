@@ -5,13 +5,11 @@
  */
 package editorframework.interfaces;
 
-import java.awt.Component;
-
 /**
  *
- * @author Eliomar Santana
+ * @author eliomar
  */
-public interface IToolbox {
-
-    public abstract void setTheme(IToolkitTheme theme, ICore core);
+public interface IProjectController {
+    public abstract void initialize(ICore core);
+    public void fileOpen(ICore core);
 }

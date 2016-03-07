@@ -2,34 +2,28 @@ package editorframework;
 
 import editorframework.interfaces.IAbstractFactory;
 import editorframework.interfaces.ICore;
-import editorframework.interfaces.IDocumentController;
 import editorframework.interfaces.Editor;
-import editorframework.interfaces.IDocument;
 import editorframework.interfaces.IPlugin;
-import editorframework.interfaces.ISerializer;
-import editorframework.interfaces.IToolbox;
 import editorframework.interfaces.IToolkitTheme;
 import editorframework.interfaces.IUIController;
 import java.awt.Component;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+
 
 public class UIController implements IUIController {
 
     public UIController(ICore core) {
         this.core = core;
         mainFrame = new MainFrame();
-        mainFrame.setVisible(true);
-        createMenuItemFileOpen(core);        
+        mainFrame.setVisible(true);       
     }
     
     @Override
@@ -54,49 +48,44 @@ public class UIController implements IUIController {
     }
     
     @Override
-    public void createMenuItemFileOpen(final ICore core) {
-        JMenuItem newItem = this.addMenuItem("File", "Open");
-        if (newItem != null)
-            newItem.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    fileOpen(core);
+    public void loadCombobox(final ICore core){
+            String nameTheme = "";
+            IPlugin plugin = null;
+            
+            ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
+            Iterator i = themes.iterator();
+            while (i.hasNext()) {
+                plugin = (IPlugin) i.next();
+                if (plugin instanceof IToolkitTheme) {
+                    nameTheme = (plugin.getClass().getName()).split("\\.")[1];
+                    combobox.addItem(nameTheme);
                 }
+                
+            }
+            addToolBarItem(combobox);
+            combobox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    IPlugin p = null;
+                    try {
+                        String itemCombobox = (String)(combobox.getSelectedItem());
+                        Class t = Class.forName("editorframework." + itemCombobox);
+                        IToolkitTheme theme = (IToolkitTheme) t.newInstance();
+                        ArrayList<IPlugin> pFabrica = core.getPluginController().loadedPlugins();//setTheme(theme, combobox);
+                        Iterator i = pFabrica.iterator();
+                            while (i.hasNext()) {
+                                p = (IPlugin) i.next();
+                                if (p instanceof IAbstractFactory) {
+                                    IAbstractFactory factoryPlugin = (IAbstractFactory) p;
+                                    factoryPlugin.createToolbox().setTheme(theme, core);
+                                }
+                
+                            }
+                    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+                        Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+               
             });
-    }
-    
-    @Override
-    public void fileOpen(ICore core){
-        IPlugin plugin = null;
-        ArrayList<IPlugin> loadedPlugins = core.getPluginController().loadedPlugins();
-        Iterator i = loadedPlugins.iterator();
-        JFileChooser jfc = new JFileChooser();
-	jfc.setDialogTitle("Open Document");
-	jfc.setDialogType(JFileChooser.OPEN_DIALOG);
-        while (i.hasNext()) {
-            plugin = (IPlugin) i.next();
-            if (plugin instanceof IAbstractFactory) {
-                IAbstractFactory factoryPlugin = (IAbstractFactory) plugin;
-                FactoryFilter ff = new FactoryFilter(factoryPlugin.supportedType(), factoryPlugin.supportedExtensions());
-                jfc.addChoosableFileFilter(ff);
-            }
-        }
-        if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION)
-        {
-            File documentFile = jfc.getSelectedFile();
-            String[] documentFileName = documentFile.getName().split("\\.");
-            IAbstractFactory factory = core.getPluginController().getFactoryPluginBySupportedExtension(documentFileName[documentFileName.length-1]);
-            if (factory != null) {
-                Editor editor = factory.createEditor();
-                ISerializer serializer = factory.createSerializer();
-                JOptionPane.showMessageDialog(null, "ExtensÃ£o " + documentFileName[documentFileName.length-1] + " aberta pelo plugin " + plugin.getClass().getSimpleName());
-                IDocumentController documentController = core.getDocumentController();
-                documentController.setSerializer(serializer);
-                IDocument document = documentController.openDocument(documentFile.getAbsolutePath());
-                editor.setDocument(document);
-                setEditor(editor);
-                factory.createToolbox().initialize(core);
-            }
-        }       
     }
      
     @Override
@@ -113,4 +102,5 @@ public class UIController implements IUIController {
  
     private MainFrame mainFrame;
     private ICore core;
+    JComboBox combobox = new JComboBox();
 }

@@ -25,11 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class TextToolbox implements IToolbox{
 
-    @Override
-    public void initialize(ICore core) {
-        
-            IUIController uiController = core.getUIController();
-            String nameTheme = "";
+    /*        String nameTheme = "";
             IPlugin plugin = null;
             
             ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
@@ -55,17 +51,21 @@ public class TextToolbox implements IToolbox{
                     }
                 }
                
-            });
-            
-            uiController.addToolBarItem(newButton);
-            if (newButton != null) {
+            });*/
+
+    
+    @Override
+    public void setTheme(IToolkitTheme theme, ICore core) {    
+        IUIController uiController = core.getUIController();
+        
+        if (newButton != null) {
                 newButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     javax.swing.JOptionPane.showMessageDialog(null, "Button 1 TextFactory !", "TextFactory !", JOptionPane.INFORMATION_MESSAGE);
                 }
             });}  
-            
-            
+            uiController.addToolBarItem(newButton);
+            theme.paint(newButton); 
             
             if (newButton2 != null) {
                 newButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -74,14 +74,12 @@ public class TextToolbox implements IToolbox{
                 }
             });} 
             uiController.addToolBarItem(newButton2);
+            theme.paint(newButton2);
+        
+              
     }
     
-    @Override
-    public void setTheme(IToolkitTheme theme, Component c) {    
-        theme.paint(c);      
-    }
-    
-    JComboBox combobox = new JComboBox();
+    //JComboBox combobox = new JComboBox();
     JButton newButton = new JButton();
     JButton newButton2 = new JButton();
     
