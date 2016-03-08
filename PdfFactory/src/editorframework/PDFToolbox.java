@@ -27,57 +27,34 @@ public class PDFToolbox implements IToolbox{
     
     @Override
     public void initialize(ICore core) {
-        
-            IUIController uiController = core.getUIController();
-            String nameTheme = "";
-            IPlugin plugin = null;
-            
-            ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
-            Iterator i = themes.iterator();
-            while (i.hasNext()) {
-                plugin = (IPlugin) i.next();
-                if (plugin instanceof IToolkitTheme) {
-                    nameTheme = (plugin.getClass().getName()).split("\\.")[1];
-                    combobox.addItem(nameTheme);
-                }
-                
+        IUIController uiController = core.getUIController();
+        newButton = uiController.addButtonToolBarItem("Button 1 PDFFactory");
+        if (newButton != null) {
+            newButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                javax.swing.JOptionPane.showMessageDialog(null, "Button 2 PDFFactory !", "PDFFactory !", JOptionPane.INFORMATION_MESSAGE);
             }
-            uiController.addToolBarItem(combobox);
-            combobox.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    try {
-                        String itemCombobox = (String)(combobox.getSelectedItem());
-                        Class t = Class.forName("editorframework." + itemCombobox);
-                        IToolkitTheme theme = (IToolkitTheme) t.newInstance();
-                        setTheme(theme, combobox);               
-                    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-                        Logger.getLogger(PDFToolbox.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-               
-            });
-            
-            uiController.addToolBarItem(newButton);
-            if (newButton != null) {
-                newButton.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    javax.swing.JOptionPane.showMessageDialog(null, "Button 1 PDFFactory !", "PDFFactory !", JOptionPane.INFORMATION_MESSAGE);
-                }
-            });}  
-
-            if (newButton2 != null) {
-                newButton2.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    javax.swing.JOptionPane.showMessageDialog(null, "Button 2 PDFFactory !", "PDFFactory !", JOptionPane.INFORMATION_MESSAGE);
-                }
-            });} 
-            uiController.addToolBarItem(newButton2);
+        });
+        }
+        
+        newButton2 = uiController.addButtonToolBarItem("Button 2 PDFFactory");
+        if (newButton2 != null) {
+            newButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                javax.swing.JOptionPane.showMessageDialog(null, "Button 2 PDFFactory !", "PDFFactory !", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        }
     }
+    
     @Override
-    public void setTheme(IToolkitTheme theme, Component c) {
-       theme.paint(c);
-    }   
-    JComboBox combobox = new JComboBox();
+    public void setTheme(IToolkitTheme theme) {    
+          
+        theme.paint(newButton);
+        theme.paint(newButton2);
+    }
+
     JButton newButton = new JButton();
-    JButton newButton2 = new JButton();   
+    JButton newButton2 = new JButton();
+
 }

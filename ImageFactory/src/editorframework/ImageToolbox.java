@@ -8,21 +8,20 @@ package editorframework;
 import editorframework.interfaces.ICore;
 import editorframework.interfaces.IToolbox;
 import editorframework.interfaces.IToolkitTheme;
-import java.awt.Component;
 
 /**
  *
  * @author Eliomar Santana
  */
 public class ImageToolbox implements IToolbox{
-    
+
     @Override
     public void initialize(ICore core) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setTheme(IToolkitTheme theme, Component c) {
+    public void setTheme(IToolkitTheme theme) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

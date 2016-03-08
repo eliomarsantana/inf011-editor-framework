@@ -59,6 +59,9 @@ public class UIController implements IUIController {
                 if (plugin instanceof IToolkitTheme) {
                     nameTheme = (plugin.getClass().getName()).split("\\.")[1];
                     combobox.addItem(nameTheme);
+                }else{
+                    IAbstractFactory factoryPlugin = (IAbstractFactory) plugin;
+                    factoryPlugin.createToolbox().initialize(core);
                 }
                 
             }
@@ -76,10 +79,11 @@ public class UIController implements IUIController {
                                 p = (IPlugin) i.next();
                                 if (p instanceof IAbstractFactory) {
                                     IAbstractFactory factoryPlugin = (IAbstractFactory) p;
-                                    factoryPlugin.createToolbox().setTheme(theme, core);
+                                    factoryPlugin.createToolbox().setTheme(theme);
                                 }
                 
                             }
+                            
                     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
                         Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -87,7 +91,18 @@ public class UIController implements IUIController {
                
             });
     }
-     
+    
+    public javax.swing.JButton addButtonToolBarItem(String buttonName){
+        javax.swing.JButton newButton = new javax.swing.JButton();
+        
+        newButton.setText(buttonName);
+        newButton.setFocusable(false);
+        newButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        newButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mainFrame.getToolBar().add(newButton);
+        return newButton;
+    }
+    
     @Override
     public void addToolBarItem(Component component) { 
         mainFrame.getToolBar().add(component);

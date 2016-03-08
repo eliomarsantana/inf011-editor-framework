@@ -20,6 +20,7 @@ public class ToolkitThemeBlack implements IPlugin, IToolkitTheme{
     @Override
     public void paint(Component c) {
         c.setBackground(Color.BLACK);  
+        System.out.println("Preto");
     }   
 
     @Override
