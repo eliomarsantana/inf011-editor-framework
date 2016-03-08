@@ -23,7 +23,7 @@ public class UIController implements IUIController {
     public UIController(ICore core) {
         this.core = core;
         mainFrame = new MainFrame();
-        mainFrame.setVisible(true);       
+        mainFrame.setVisible(true);
     }
     
     @Override
@@ -47,58 +47,13 @@ public class UIController implements IUIController {
         return targetMenuItem;
     }
     
-    @Override
-    public void loadCombobox(final ICore core){
-            String nameTheme = "";
-            IPlugin plugin = null;
-            
-            ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
-            Iterator i = themes.iterator();
-            while (i.hasNext()) {
-                plugin = (IPlugin) i.next();
-                if (plugin instanceof IToolkitTheme) {
-                    nameTheme = (plugin.getClass().getName()).split("\\.")[1];
-                    combobox.addItem(nameTheme);
-                }else{
-                    IAbstractFactory factoryPlugin = (IAbstractFactory) plugin;
-                    factoryPlugin.createToolbox().initialize(core);
-                }
-                
-            }
-            addToolBarItem(combobox);
-            combobox.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    IPlugin p = null;
-                    try {
-                        String itemCombobox = (String)(combobox.getSelectedItem());
-                        Class t = Class.forName("editorframework." + itemCombobox);
-                        IToolkitTheme theme = (IToolkitTheme) t.newInstance();
-                        ArrayList<IPlugin> pFabrica = core.getPluginController().loadedPlugins();//setTheme(theme, combobox);
-                        Iterator i = pFabrica.iterator();
-                            while (i.hasNext()) {
-                                p = (IPlugin) i.next();
-                                if (p instanceof IAbstractFactory) {
-                                    IAbstractFactory factoryPlugin = (IAbstractFactory) p;
-                                    factoryPlugin.createToolbox().setTheme(theme);
-                                }
-                
-                            }
-                            
-                    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-                        Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-               
-            });
-    }
-    
     public javax.swing.JButton addButtonToolBarItem(String buttonName){
         javax.swing.JButton newButton = new javax.swing.JButton();
         
         newButton.setText(buttonName);
-        newButton.setFocusable(false);
-        newButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        newButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        //newButton.setFocusable(true);
+        //newButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        //newButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         mainFrame.getToolBar().add(newButton);
         return newButton;
     }
@@ -117,5 +72,5 @@ public class UIController implements IUIController {
  
     private MainFrame mainFrame;
     private ICore core;
-    JComboBox combobox = new JComboBox();
+    
 }

@@ -13,13 +13,15 @@ import editorframework.interfaces.IDocumentController;
 import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.IProjectController;
 import editorframework.interfaces.ISerializer;
+import editorframework.interfaces.IToolkitTheme;
 import editorframework.interfaces.IUIController;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.swing.JComponent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,15 +32,46 @@ public class ProjectController implements IProjectController{
 
     @Override
     public void initialize(final ICore core) {
-    
+        
         IUIController uiController = core.getUIController();
-        javax.swing.JMenuItem newItem = uiController.addMenuItem("File", "Open");
-        if (newItem != null)
-            newItem.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    fileOpen(core);
+        
+        String nameTheme = "";
+            
+                IPlugin p = null;
+                ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
+                Iterator i = themes.iterator();
+                while (i.hasNext()) {
+                    p = (IPlugin) i.next();
+                    if (p instanceof IToolkitTheme) {
+                        IToolkitTheme theme = (IToolkitTheme) p;
+                        nameTheme = (theme.getClass().getName()).split("\\.")[1];
+                        combobox.addItem(nameTheme);
+                    }
                 }
-            });    
+     
+            combobox.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        try {
+                            String itemCombobox = (String)(combobox.getSelectedItem());
+                            Class t = Class.forName("editorframework." + itemCombobox);
+                            IToolkitTheme theme = (IToolkitTheme) t.newInstance();  
+                            setTheme(theme, core);
+                            }catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+                                    Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        
+                    }
+            });
+ 
+        uiController.addToolBarItem(combobox);
+        
+        javax.swing.JMenuItem newItem = uiController.addMenuItem("File", "Open");
+                if (newItem != null)
+                    newItem.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            fileOpen(core);
+                        }
+                    });    
     }
 
     @Override
@@ -62,6 +95,7 @@ public class ProjectController implements IProjectController{
             File documentFile = jfc.getSelectedFile();
             String[] documentFileName = documentFile.getName().split("\\.");
             IAbstractFactory factory = core.getPluginController().getFactoryPluginBySupportedExtension(documentFileName[documentFileName.length-1]);
+            factory.createToolbox().loadToolBox(core);
             if (factory != null) {
                 Editor editor = factory.createEditor();
                 ISerializer serializer = factory.createSerializer();
@@ -75,4 +109,25 @@ public class ProjectController implements IProjectController{
         }
     }
     
+    public void setTheme(IToolkitTheme theme, ICore core)
+    {
+        if (theme == null){ 
+            javax.swing.JOptionPane.showMessageDialog(null, "Plugin de thema não implantado!", "Aviso !", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+           IPlugin p = null;
+                ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
+                Iterator i = themes.iterator();
+                while (i.hasNext()) {
+                    p = (IPlugin) i.next();
+                    if (p instanceof IAbstractFactory) {
+                        IAbstractFactory pFactory = (IAbstractFactory) p;
+                        pFactory.createToolbox().setTheme(theme);
+                    }
+                } 
+        }
+        
+        
+    }
+    
+    JComboBox combobox = new JComboBox();
 }

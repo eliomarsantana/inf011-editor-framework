@@ -10,6 +10,6 @@ package editorframework.interfaces;
  * @author Eliomar Santana
  */
 public interface IToolbox {
-    public abstract void initialize(ICore core);
+    public abstract void loadToolBox(ICore core);
     public abstract void setTheme(IToolkitTheme theme);
 }

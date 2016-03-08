@@ -9,7 +9,6 @@ import editorframework.interfaces.IToolbox;
 import editorframework.interfaces.IToolkitTheme;
 import editorframework.interfaces.IUIController;
 import editorframework.interfaces.ICore;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -20,9 +19,13 @@ import javax.swing.JOptionPane;
 public class TextToolbox implements IToolbox{
 
     @Override
-    public void initialize(ICore core) {
+    public void loadToolBox(ICore core) {
+        
+        newButton = new javax.swing.JButton();
+        newButton2 = new javax.swing.JButton();
+        
         IUIController uiController = core.getUIController();
-        newButton = uiController.addButtonToolBarItem("Button 1 TextFactory");
+        newButton = uiController.addButtonToolBarItem("Button 1");
         if (newButton != null) {
             newButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -31,7 +34,7 @@ public class TextToolbox implements IToolbox{
         });
         }
         
-        newButton2 = uiController.addButtonToolBarItem("Button 2 TextFactory");
+        newButton2 = uiController.addButtonToolBarItem("Button 2");
         if (newButton2 != null) {
             newButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -39,13 +42,7 @@ public class TextToolbox implements IToolbox{
             }
         });
         }
-        
-        uiController.addToolBarItem(combobox);
-        combobox.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                javax.swing.JOptionPane.showMessageDialog(null, "Combobox!", "TextFactory !", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
+
         
     }
     
@@ -54,12 +51,11 @@ public class TextToolbox implements IToolbox{
           
         theme.paint(newButton);
         theme.paint(newButton2);
-        theme.paint(combobox);
+
     }
 
-    JComboBox combobox = new JComboBox();
-    JButton newButton = new JButton();
-    JButton newButton2 = new JButton();
+    private javax.swing.JButton newButton;
+    private javax.swing.JButton newButton2;
     
 }
 

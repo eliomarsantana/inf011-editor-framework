@@ -19,7 +19,7 @@ public class ToolkitThemeBlue implements IPlugin, IToolkitTheme {
 
     @Override
     public void paint(Component c) {
-        c.setBackground(Color.BLUE);
+        c.setBackground(new Color(000, 191, 255));
         System.out.println("Azul");
     }   
 

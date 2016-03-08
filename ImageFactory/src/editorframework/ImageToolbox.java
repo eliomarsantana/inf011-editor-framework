@@ -15,13 +15,15 @@ import editorframework.interfaces.IToolkitTheme;
  */
 public class ImageToolbox implements IToolbox{
 
+   
+
     @Override
-    public void initialize(ICore core) {
+    public void setTheme(IToolkitTheme theme) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setTheme(IToolkitTheme theme) {
+    public void loadToolBox(ICore core) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

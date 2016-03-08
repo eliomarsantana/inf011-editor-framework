@@ -11,12 +11,13 @@ import java.util.logging.Logger;
 public class Core implements ICore {
     public Core() throws Exception {
         
+        uiController = new UIController(this);
         pluginController = new PluginController();
         pluginController.initialize(this);
-        uiController = new UIController(this);
-        uiController.loadCombobox(this);
         projectController = new ProjectController();
         projectController.initialize(this);
+        
+        
         documentController = new DocumentController();
     }
     

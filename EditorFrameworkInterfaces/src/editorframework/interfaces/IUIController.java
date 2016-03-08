@@ -16,6 +16,5 @@ public interface IUIController {
     JMenuItem addMenuItem(String menu, String menuItem);
     public void setEditor(Editor editor);
     public abstract void addToolBarItem(Component component);
-    public void loadCombobox(ICore core);
     public abstract javax.swing.JButton addButtonToolBarItem(String buttonName);
 }

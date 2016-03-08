@@ -5,7 +5,6 @@
  */
 package editorframework;
 
-import editorframework.interfaces.ICore;
 import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 

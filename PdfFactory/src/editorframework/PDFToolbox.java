@@ -25,19 +25,23 @@ import javax.swing.JOptionPane;
  */
 public class PDFToolbox implements IToolbox{
     
-    @Override
-    public void initialize(ICore core) {
+        @Override
+    public void loadToolBox(ICore core) {
+        
+        newButton = new javax.swing.JButton();
+        newButton2 = new javax.swing.JButton();
+        
         IUIController uiController = core.getUIController();
-        newButton = uiController.addButtonToolBarItem("Button 1 PDFFactory");
+        newButton = uiController.addButtonToolBarItem("Button 1");
         if (newButton != null) {
             newButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                javax.swing.JOptionPane.showMessageDialog(null, "Button 2 PDFFactory !", "PDFFactory !", JOptionPane.INFORMATION_MESSAGE);
+                javax.swing.JOptionPane.showMessageDialog(null, "Button 1 PDFFactory !", "PDFFactory !", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         }
         
-        newButton2 = uiController.addButtonToolBarItem("Button 2 PDFFactory");
+        newButton2 = uiController.addButtonToolBarItem("Button 2");
         if (newButton2 != null) {
             newButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -45,6 +49,8 @@ public class PDFToolbox implements IToolbox{
             }
         });
         }
+
+        
     }
     
     @Override
@@ -52,9 +58,10 @@ public class PDFToolbox implements IToolbox{
           
         theme.paint(newButton);
         theme.paint(newButton2);
+
     }
 
-    JButton newButton = new JButton();
-    JButton newButton2 = new JButton();
+    private javax.swing.JButton newButton;
+    private javax.swing.JButton newButton2;
 
 }
