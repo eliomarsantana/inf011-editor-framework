@@ -6,17 +6,10 @@
 package editorframework;
 
 import editorframework.interfaces.ICore;
-import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.IToolbox;
 import editorframework.interfaces.IToolkitTheme;
 import editorframework.interfaces.IUIController;
-import java.awt.Component;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,15 +18,13 @@ import javax.swing.JOptionPane;
  */
 public class PDFToolbox implements IToolbox{
     
-        @Override
+    @Override
     public void loadToolBox(ICore core) {
-        
-        newButton = new javax.swing.JButton();
-        newButton2 = new javax.swing.JButton();
-        
+  
         IUIController uiController = core.getUIController();
-        newButton = uiController.addButtonToolBarItem("Button 1");
+        javax.swing.JButton newButton = uiController.addButtonToolBarItem("Button 1 PDF");
         if (newButton != null) {
+            setButton(newButton);
             newButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 javax.swing.JOptionPane.showMessageDialog(null, "Button 1 PDFFactory !", "PDFFactory !", JOptionPane.INFORMATION_MESSAGE);
@@ -41,27 +32,29 @@ public class PDFToolbox implements IToolbox{
         });
         }
         
-        newButton2 = uiController.addButtonToolBarItem("Button 2");
-        if (newButton2 != null) {
-            newButton2.addActionListener(new java.awt.event.ActionListener() {
+        newButton = uiController.addButtonToolBarItem("Button 2 PDF");
+        if (newButton != null) {
+            setButton(newButton);
+            newButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 javax.swing.JOptionPane.showMessageDialog(null, "Button 2 PDFFactory !", "PDFFactory !", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-        }
-
+        }   
         
     }
     
     @Override
-    public void setTheme(IToolkitTheme theme) {    
-          
-        theme.paint(newButton);
-        theme.paint(newButton2);
-
+    public void setTheme(IToolkitTheme theme) {          
+        theme.paint(getButton());
     }
-
-    private javax.swing.JButton newButton;
-    private javax.swing.JButton newButton2;
+    public void setButton(JButton btn){
+        this.btn = btn;
+    }
+    
+    public JButton getButton(){
+        return btn;
+    }
+    private JButton btn;
 
 }

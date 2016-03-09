@@ -10,6 +10,7 @@ import editorframework.interfaces.IPlugin;
 import editorframework.interfaces.IToolkitTheme;
 import java.awt.Color;
 import java.awt.Component;
+import javax.swing.JButton;
 
 /**
  *
@@ -18,9 +19,9 @@ import java.awt.Component;
 public class ToolkitThemeBlue implements IPlugin, IToolkitTheme {
 
     @Override
-    public void paint(Component c) {
-        c.setBackground(new Color(000, 191, 255));
-        System.out.println("Azul");
+    public void paint(JButton b) {
+        //b.setBackground(new Color(000, 191, 255));
+        System.out.println("Aplicando tema azul");
     }   
 
     @Override

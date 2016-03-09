@@ -94,10 +94,10 @@ public class ProjectController implements IProjectController{
         {
             File documentFile = jfc.getSelectedFile();
             String[] documentFileName = documentFile.getName().split("\\.");
-            IAbstractFactory factory = core.getPluginController().getFactoryPluginBySupportedExtension(documentFileName[documentFileName.length-1]);
-            factory.createToolbox().loadToolBox(core);
+            factory = core.getPluginController().getFactoryPluginBySupportedExtension(documentFileName[documentFileName.length-1]);
             if (factory != null) {
                 Editor editor = factory.createEditor();
+                factory.createToolbox().loadToolBox(core);
                 ISerializer serializer = factory.createSerializer();
                 JOptionPane.showMessageDialog(null, "ExtensÃ£o " + documentFileName[documentFileName.length-1] + " aberta pelo plugin " + plugin.getClass().getSimpleName());
                 IDocumentController documentController = core.getDocumentController();
@@ -111,23 +111,11 @@ public class ProjectController implements IProjectController{
     
     public void setTheme(IToolkitTheme theme, ICore core)
     {
-        if (theme == null){ 
-            javax.swing.JOptionPane.showMessageDialog(null, "Plugin de thema não implantado!", "Aviso !", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-           IPlugin p = null;
-                ArrayList<IPlugin> themes = core.getPluginController().loadedPlugins();
-                Iterator i = themes.iterator();
-                while (i.hasNext()) {
-                    p = (IPlugin) i.next();
-                    if (p instanceof IAbstractFactory) {
-                        IAbstractFactory pFactory = (IAbstractFactory) p;
-                        pFactory.createToolbox().setTheme(theme);
-                    }
-                } 
-        }
-        
-        
+        if (theme == null) 
+            javax.swing.JOptionPane.showMessageDialog(null, "Plugin de thema não implantado!", "Aviso !", JOptionPane.INFORMATION_MESSAGE); 
+        factory.createToolbox().setTheme(theme); 
     }
-    
+ 
     JComboBox combobox = new JComboBox();
+    private IAbstractFactory factory;
 }

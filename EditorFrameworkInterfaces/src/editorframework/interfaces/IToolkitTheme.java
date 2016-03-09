@@ -5,12 +5,12 @@
  */
 package editorframework.interfaces;
 
-import java.awt.Component;
+import javax.swing.JButton;
 
 /**
  *
  * @author Eliomar Santana
  */
 public interface IToolkitTheme {
-    public abstract void paint(Component c);
+    public abstract void paint(JButton b);
 }
