@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package editorframework;
 
 import editorframework.interfaces.ICore;
@@ -10,15 +5,20 @@ import editorframework.interfaces.IDocumentController;
 import editorframework.interfaces.IPluginController;
 import editorframework.interfaces.IUIController;
 
-/**
- *
- * @author aluno
- */
+
 public class Core implements ICore {
-    public Core() throws Exception {
-        uiController = new UIController();
+
+    public Core(){
+        uiController = new UIController(this);
         documentController = new DocumentController();
-        pluginController = new PluginController(this);
+        pluginController = new PluginController();
+        pluginController.initialize(this);
+    }
+    
+    public static Core getInstance() {
+        if(core == null)
+            core = new Core();
+        return core;
     }
 
     @Override
@@ -39,4 +39,5 @@ public class Core implements ICore {
     private IUIController uiController;
     private IDocumentController documentController;
     private IPluginController pluginController;
+    private static Core core;
 }

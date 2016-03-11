@@ -5,10 +5,14 @@
  */
 package editorframework.interfaces;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author aluno
  */
 public interface IPluginController {
-    
+    public abstract ArrayList<IPlugin> loadedPlugins();
+    public abstract void initialize(ICore core);
+    public abstract IAbstractFactory getFactoryPluginBySupportedExtension(String extension);
 }

@@ -16,7 +16,7 @@ import javax.swing.JMenuItem;
 public class TestPlugin implements IPlugin {
 
     @Override
-    public boolean initialize(ICore core) {
+    public void initialize(ICore core) {
         JMenuItem newItem = core.getUIController().addMenuItem("File", "Quit");
         if (newItem != null)
             newItem.addActionListener(new java.awt.event.ActionListener() {
@@ -26,7 +26,7 @@ public class TestPlugin implements IPlugin {
             });
 
         core.getUIController().addMenuItem("Help", "About");
-        return true;
+        //return true;
     }
     
 }
